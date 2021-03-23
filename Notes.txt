@@ -1883,4 +1883,772 @@ ubuntu@ip-172-31-28-232:~/shila-repo$
 
 
 =================================================
+################################################ Cherry-pick     
+
+If we want to merge specific commit from another branch in base branch that time we can use the following command
+$ git cherry-pick <SHA-VALUE>
+If suppose we are working on a branch where there is code file for 3 different domain such as UI,payament and inventorymanagement.
+If suppose we completed UI but payament and inventory management still need to complete
+And in case team lead says we need UI now to be send to main we don't care of payment and inventorymanagement that we merge letter after completion
+So cherry pick helps us to move single commit to main.
+
+ubuntu@ip-172-31-28-232:~$ ls
+Devops-March-batch-1  Notes  Practice-repo  covid  demo-repo  devops-march-batch  shila-repo
+ubuntu@ip-172-31-28-232:~$ cd shila-repo/
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls
+README.md  br2.java    br3_2.java  br4_1.java  c.java   c2.java
+b1.java    br3_1.java  br3_3.java  br4_2.java  c1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch branch_5
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+  branch_5
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout branch_5
+Switched to branch 'branch_5'
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls
+README.md  br2.java    br3_2.java  br4_1.java  c.java   c2.java
+b1.java    br3_1.java  br3_3.java  br4_2.java  c1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push --set-upstream origin branch_5    ---we have pushed branch_5 to main
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'branch_5' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/shila-repo/pull/new/branch_5
+remote:
+To https://github.com/nitin-git-cmd/shila-repo.git
+ * [new branch]      branch_5 -> branch_5
+Branch 'branch_5' set up to track remote branch 'branch_5' from 'origin'.
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+* branch_5
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ touch br5_1.java br5_2.java br5_3.java br5_4.java      --->created 4 files in branch_5
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 14:47 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 14:44 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 14:47 br5_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 14:47 br5_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 14:47 br5_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 14:47 br5_4.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_5
+Your branch is up to date with 'origin/branch_5'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        br5_1.java
+        br5_2.java
+        br5_3.java
+        br5_4.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/shila-repo$ git add .
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_5
+Your branch is up to date with 'origin/branch_5'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   br5_1.java
+        new file:   br5_2.java
+        new file:   br5_3.java
+        new file:   br5_4.java
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git commit br5_1.java -m "branch5 file to understand cherry-pick"     -->we commit br5_1.java file to understand cherrypick concept we want one commitm which we can use to demonstarte
+[branch_5 eb14110] branch5 file to understand cherry-pick
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 br5_1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git commit br5_2.java br5_3.java br5_4.java -m "branch5 file to understand cherry pick concept demo"
+[branch_5 9a3804c] branch5 file to understand cherry pick concept demo
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 br5_2.java
+ create mode 100644 br5_3.java
+ create mode 100644 br5_4.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_5
+Your branch is ahead of 'origin/branch_5' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git log -n2
+commit 9a3804cb8864a70b831b20ef5abb38869b52b691 (HEAD -> branch_5)
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 22 14:50:48 2021 +0000
+
+    branch5 file to understand cherry pick concept demo
+
+commit eb1411092eba03b01be262091263bda0660eac6f
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 22 14:49:33 2021 +0000
+
+    branch5 file to understand cherry-pick
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 15:02 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 15:02 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Everything up-to-date
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 15:02 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 15:02 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git cherry-pick eb1411092eba03b01be262091263bda0660eac6f
+[main f8fdc05] branch5 file to understand cherry-pick
+ Date: Mon Mar 22 14:49:33 2021 +0000
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 br5_1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls
+README.md  br2.java    br3_2.java  br4_1.java  br5_1.java  c1.java
+b1.java    br3_1.java  br3_3.java  br4_2.java  c.java      c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 15:05 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 15:05 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:33 br4_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 15:05 br5_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 247 bytes | 247.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/shila-repo.git
+   53980bb..f8fdc05  main -> main
+
+=================================================
 ################################################
+
+# rebase
+   - We have two branches master and feature
+   - First time in master branch two files m1,m2, on the base of this branch we created a feature branch,
+     now in this branch same   files m1,m2 and one new file f1 this file is created in feature branch,
+   - but after creation of feature branch someone push one more file i.e m3 in master branch, but our feature branch base is m2.
+   - But, I want continue my work in feature branch so we created one more file ie. f2 in feature branch.
+   - so see following steps :
+        $ git branch
+           - master (m1,m2,m3)
+           - feature* (m1,m2, f1,f2) feature branch is created based on m2, so feature branch base is m2.
+             so we need to change base of the feature branch, then use below command.
+        $ git rebase master (apply this command in feature branch)
+            - now in feature branch has five file ie. (m1,m2,m3,f1,f2) now base of feature branch is m3.
+              now we want feature branch data in master branch, then use below command
+        $ git checkout master
+        $ git rebase feature (feature branch changes come into master branch)
+		
+		
+
+
+
+ubuntu@ip-172-31-28-232:~$ git clone https://github.com/nitin-git-cmd/Rebase_Demo.git
+Cloning into 'Rebase_Demo'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 598 bytes | 598.00 KiB/s, done.
+ubuntu@ip-172-31-28-232:~$ ll
+total 92
+drwxr-xr-x 14 ubuntu ubuntu  4096 Mar 23 08:54 ./
+drwxr-xr-x  3 root   root    4096 Mar 11 18:31 ../
+-rw-------  1 ubuntu ubuntu  5208 Mar 22 10:48 .bash_history
+-rw-r--r--  1 ubuntu ubuntu   220 Feb 25  2020 .bash_logout
+-rw-r--r--  1 ubuntu ubuntu  3771 Feb 25  2020 .bashrc
+drwx------  3 ubuntu ubuntu  4096 Mar 13 03:48 .cache/
+drwx------  3 ubuntu ubuntu  4096 Mar 22 18:07 .config/
+-rw-rw-r--  1 ubuntu ubuntu    73 Mar 13 03:26 .gitconfig
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 21 03:35 .local/
+-rw-r--r--  1 ubuntu ubuntu   807 Feb 25  2020 .profile
+drwx------  2 ubuntu ubuntu  4096 Mar 11 18:31 .ssh/
+-rw-r--r--  1 ubuntu ubuntu     0 Mar 12 17:31 .sudo_as_admin_successful
+-rw-------  1 ubuntu ubuntu 10439 Mar 21 04:11 .viminfo
+drwxrwxr-x  4 ubuntu ubuntu  4096 Mar 13 04:01 Devops-March-batch-1/
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 13 04:39 Notes/
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 16 16:55 Practice-repo/
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 23 08:54 Rebase_Demo/
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 19 09:54 covid/
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 21 11:11 demo-repo/
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 21 04:17 devops-march-batch/
+drwxrwxr-x  3 ubuntu ubuntu  4096 Mar 22 15:05 shila-repo/
+ubuntu@ip-172-31-28-232:~$ cd Rebase_Demo/
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ls -a
+.  ..  .git  README.md
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch feature
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+  feature
+* main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch -d feature
+Deleted branch feature (was 3851b24).
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ touch m1.java m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        m1.java
+        m2.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   m1.java
+        new file:   m2.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git commit -m " m files"
+[main f8f8b0f]  m files
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 m1.java
+ create mode 100644 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 268 bytes | 268.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+   3851b24..f8f8b0f  main -> main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 08:57 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 08:58 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 08:57 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 08:58 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch feature
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+  feature
+* main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 08:57 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 08:58 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout feature
+Switched to branch 'feature'
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 08:57 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:00 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push --set-upstream origin feature
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'feature' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/Rebase_Demo/pull/new/feature
+remote:
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+ * [new branch]      feature -> feature
+Branch 'feature' set up to track remote branch 'feature' from 'origin'.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+* feature
+  main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ touch f1.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:04 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:03 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:04 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch feature
+Your branch is up to date with 'origin/feature'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        f1.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch feature
+Your branch is up to date with 'origin/feature'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   f1.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git commit -m "f1 file"
+[feature f461917] f1 file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f1.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 226 bytes | 226.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+   f8f8b0f..f461917  feature -> feature
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:04 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:05 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:04 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ touch m3.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git add
+Nothing specified, nothing added.
+Maybe you wanted to say 'git add .'?
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   m3.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git commit -m "m3 file"
+[main 7c67d9b] m3 file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 m3.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 219 bytes | 219.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+   f8f8b0f..7c67d9b  main -> main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:07 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:07 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:07 m3.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout feature
+Switched to branch 'feature'
+Your branch is up to date with 'origin/feature'.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:11 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:11 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ touch f2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch feature
+Your branch is up to date with 'origin/feature'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        f2.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch feature
+Your branch is up to date with 'origin/feature'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   f2.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git commit -m "f2 file"
+[feature 68caaa1] f2 file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 216 bytes | 216.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+   f461917..68caaa1  feature -> feature
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:11 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:11 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch feature1
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:11 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:11 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+* feature
+  feature1
+  main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout feature1
+Switched to branch 'feature1'
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:11 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:14 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+  feature
+* feature1
+  main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+  feature
+* feature1
+  main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ touch fe1.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch feature1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        fe1.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   fe1.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git commit -m "fe1 file"
+[feature1 1f772d9] fe1 file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 fe1.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push
+fatal: The current branch feature1 has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin feature1
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push --set-upstream origin feature1
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 214 bytes | 214.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'feature1' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/Rebase_Demo/pull/new/feature1
+remote:
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+ * [new branch]      feature1 -> feature1
+Branch 'feature1' set up to track remote branch 'feature1' from 'origin'.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:17 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:18 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:11 f2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:17 fe1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout main      --->We can see there is one more m file that is m3...so we will do rebase so this file get added to feature1.
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:19 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:19 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:19 m3.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout feature1
+Switched to branch 'feature1'
+Your branch is up to date with 'origin/feature1'.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+  feature
+* feature1
+  main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git rebase main
+First, rewinding head to replay your work on top of it...
+Applying: f1 file
+Applying: f2 file
+Applying: fe1 file
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:21 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:21 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:21 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:21 f2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:21 fe1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:21 m3.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:22 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:22 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:21 m3.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git rebase feature1
+First, rewinding head to replay your work on top of it...
+Fast-forwarded main to feature1.
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 23 09:23 ./
+drwxr-xr-x 14 ubuntu ubuntu 4096 Mar 23 08:54 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 23 09:23 .git/
+-rw-rw-r--  1 ubuntu ubuntu   13 Mar 23 08:54 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:23 f1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:23 f2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:23 fe1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 08:57 m2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 23 09:21 m3.java
+
+
+
+=====================================================================
+#################################################################################
+
+# How do you restore a deleted file? Or previous changes of a file?
+
+        1.) - $ git log --diff-filter=D --summary (get SHA-value of deleted file using this command.)
+        2.) - $ git checkout $commit <SHA-VALUE>~1 <filename>
+        3.) - $ git status (file present in stage area)
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git branch
+  feature
+  feature1
+* main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ ls
+README.md  f1.java  f2.java  fe1.java  m1.java  m2.java  m3.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git rm m1.java m2.java
+rm 'm1.java'
+rm 'm2.java'
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    m1.java
+        deleted:    m2.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    m1.java
+        deleted:    m2.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git commit -m "deleted file"
+[main 1cbcb92] deleted file
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 m1.java
+ delete mode 100644 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 211 bytes | 211.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+   6b5010e..1cbcb92  main -> main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git log --diff-filter=D --summary
+commit 1cbcb92a5a8bef6828285cc6e6d00675d357228e (HEAD -> main, origin/main, origin/HEAD)
+Author: nitin <abc@gmail.com>
+Date:   Tue Mar 23 09:34:08 2021 +0000
+
+    deleted file
+
+ delete mode 100644 m1.java
+ delete mode 100644 m2.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git checkout $commit 1cbcb92a5a8bef6828285cc6e6d00675d357228e~1 m1.java m2.java
+Updated 2 paths from fd511d3
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   m1.java
+        new file:   m2.java
+
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git commit -m "added deleted file"
+[main 6fc4d09] added deleted file
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 m1.java
+ create mode 100644 m2.java
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 228 bytes | 228.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Rebase_Demo.git
+   1cbcb92..6fc4d09  main -> main
+ubuntu@ip-172-31-28-232:~/Rebase_Demo$
+#
