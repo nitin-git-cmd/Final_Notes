@@ -521,4 +521,1366 @@ Date:   Sat Mar 13 10:58:01 2021 +0000
 ubuntu@ip-172-31-19-207:~/Git/Learn-Git/localtoremote$
 
 
+How to check logs
+================
 
+buntu@ip-172-31-19-207:~/Git$ cd Learn-Git/
+ubuntu@ip-172-31-19-207:~/Git/Learn-Git$ git log -n2
+commit 11cc6ae88b478a3dc0cd2024feecf6f052dd36c3 (HEAD -> main, origin/main, origin/HEAD)
+Author: neha <nehadbambal@gmail.com>
+Date:   Sat Mar 13 10:36:01 2021 +0000
+
+    auth final status
+
+commit a303b708492aafb0fc3c5ba7306e48b584df3741
+Author: neha <nehadbambal@gmail.com>
+Date:   Sat Mar 13 10:32:03 2021 +0000
+
+    user auth status
+ubuntu@ip-172-31-19-207:~/Git/Learn-Git$
+
+
+buntu@ip-172-31-19-207:~/Git/Learn-Git$ git log --author="neha"
+commit 11cc6ae88b478a3dc0cd2024feecf6f052dd36c3 (HEAD -> main, origin/main, origin/HEAD)
+Author: neha <nehadbambal@gmail.com>
+Date:   Sat Mar 13 10:36:01 2021 +0000
+
+    auth final status
+
+commit a303b708492aafb0fc3c5ba7306e48b584df3741
+Author: neha <nehadbambal@gmail.com>
+Date:   Sat Mar 13 10:32:03 2021 +0000
+
+    user auth status
+
+commit 327aba6dcdb31b8286d6fd7d961deb2052d697ce
+Author: nehagit123 <80207240+nehagit123@users.noreply.github.com>
+Date:   Sat Mar 13 15:34:44 2021 +0530
+
+    Initial commit
+ubuntu@ip-172-31-19-207:~/Git/Learn-Git$
+
+
+ubuntu@ip-172-31-19-207:~/Git/Learn-Git$ git log --oneline    ->to check how many commits with comments
+11cc6ae (HEAD -> main, origin/main, origin/HEAD) auth final status
+a303b70 user auth status
+edec760 first commit files
+327aba6 Initial commit
+ubuntu@ip-172-31-19-207:~/Git/Learn-Git$
+
+
+
+
+File Difference Module
+===========================
+
+ubuntu@ip-172-31-19-207:~/Learn-Git$ cat aaa.java   -->to see the original content of the file as we want to change the content to see the diff comman operation.
+nitin bambal
+neha bambal
+rupali bambal
+==============================
+
+Above is the content in the file
+Now we have added below content to the file
+
+buntu@ip-172-31-19-207:~/Learn-Git$ cat aaa.java
+nitin bambal
+neha bambal
+rupali bambal
+=============================
+
+Kits Ramtek
+Karad
+Kits
+
+## so from above we can see 3 more lines are added in the main file aaa.java
+##now to see the chenges that we did in the original aaa.java file we use the command as below
+
+Command: git diff <File Name>
+e.g.
+$git diff aaa.java
+
+ubuntu@ip-172-31-19-207:~/Learn-Git$ git diff aaa.java
+diff --git a/aaa.java b/aaa.java
+index b3f4c9f..440b609 100644
+--- a/aaa.java
++++ b/aaa.java
+@@ -1,4 +1,10 @@
+ nitin bambal
+ neha bambal
+ rupali bambal
+-==============================
++=============================
++
++Kits Ramtek
++Karad
++Kits
++
++
+
+
+Above is the output we got.
+The test which is in green followe by + sign is the change we made in the original file.
+
+#######################################################
+#####################################################
+$ git diff --staged <filename>
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java   --->Original File
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+
+==============
+
+Pune
+ubuntu@ip-172-31-28-232:~/Practice-repo$ vim Neha.java   ---->We have updated file deleted some line and added some
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+Ramtek
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Neha.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git add.
+git: 'add.' is not a git command. See 'git --help'.
+
+The most similar command is
+        add
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git add .        --->Then we added the file in stage
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status       --->Confirmed the modified file is in stage
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   Neha.java
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+Ramtek
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git diff --staged Neha.java   ---->We have used the command to check what was the difference in the new file.
+diff --git a/Neha.java b/Neha.java
+index da38099..8ce778b 100644
+--- a/Neha.java
++++ b/Neha.java
+@@ -7,7 +7,4 @@ Rani
+
+ Saoner
+ Nagpur
+-
+-==============
+-
+-Pune
++Ramtek
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git commit Neha.java -m "diff file 1"   --updated new file to remote repository
+[main 08d78d7] diff file 1
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 331 bytes | 331.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Practice-repo.git
+   fb32e62..08d78d7  main -> main
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Practice-repo$
+
+===========================================================
+###########################################################
+
+$ git diff  089871935..fc894a6bf6d2e (if we want to see difference between two files)(use commit ids).
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git log -n2
+commit 08d78d7985c8f3ff0503bee124c4ae9dc99a93f1 (HEAD -> main, origin/main, origin/HEAD)
+Author: nitin <abc@gmail.com>
+Date:   Tue Mar 16 16:18:04 2021 +0000
+
+    diff file 1
+
+commit fb32e62402e7be3d6ff89399eceec3e62502faae
+Author: nitin <abc@gmail.com>
+Date:   Tue Mar 16 16:14:00 2021 +0000
+
+    updated file
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git diff 08d78d7985c8f3ff0503bee124c4ae9dc99a93f1 fb32e62402e7be3d6ff89399eceec3e62502faae   --->Here the commit id we put first is latest one
+diff --git a/Neha.java b/Neha.java
+index 8ce778b..da38099 100644
+--- a/Neha.java
++++ b/Neha.java
+@@ -7,4 +7,7 @@ Rani
+
+ Saoner
+ Nagpur
+-Ramtek
++
++==============
++
++Pune
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git diff fb32e62402e7be3d6ff89399eceec3e62502faae 08d78d7985c8f3ff0503bee124c4ae9dc99a93f1   --->Here the commit id we put first is latest prior to latest
+diff --git a/Neha.java b/Neha.java
+index da38099..8ce778b 100644
+--- a/Neha.java
++++ b/Neha.java
+@@ -7,7 +7,4 @@ Rani
+
+ Saoner
+ Nagpur
+-
+-==============
+-
+-Pune
++Ramtek
+ubuntu@ip-172-31-28-232:~/Practice-repo$
+
+
+=========================================================================
+########################################################################
+
+2. Deleting a file
+
+        A.) $ git rm <filename>
+            $ git commit <filename> -m "comment"
+            $ git push
+
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ ls      --->Checked how many file in repository
+Neha.java  README.md  a.java  b.java  c1.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat a.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat b.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat c1.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git rm c1.java    --->Removed c1.java file
+rm 'c1.java'
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    c1.java
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git commit c1.java -m "deleted file"
+[main 6b8a222] deleted file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 c1.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 207 bytes | 207.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Practice-repo.git
+   08d78d7..6b8a222  main -> main
+ubuntu@ip-172-31-28-232:~/Practice-repo$ ls     ---->c1.java file removed successfully.
+Neha.java  README.md  a.java  b.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$
+
+
+Checked the remote repository and confirmed file c1.java was removed from there also.
+
+=========================================================================================
+#########################################################################################
+
+4. Renaming a file/folder
+        A.) $ git mv Login.java Login1.java
+            $ git commit -m "rename Login"
+            $ git push
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ ls
+Neha.java  README.md  a.java  b1.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git mv b1.java b.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    b1.java -> b.java
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git commit -m "renamed file New"    --->Don't use file name here
+[main cdfab71] renamed file New
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename b1.java => b.java (100%)
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 245 bytes | 245.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Practice-repo.git
+   0f7428f..cdfab71  main -> main
+ubuntu@ip-172-31-28-232:~/Practice-repo$ ls
+Neha.java  README.md  a.java  b.java
+
+Checked and found the file name changed in the remote repository.
+
+
+==================================================
+#
+Carry the history for new file from old file
+        - $ git log --follow <new-name>
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git log b.java
+commit cdfab7187a4ab24a54ca3b59391f2547117c5f62 (HEAD -> main, origin/main, origin/HEAD)
+Author: nitin <abc@gmail.com>
+Date:   Tue Mar 16 16:39:56 2021 +0000
+
+    renamed file New
+
+commit 0f7428fbcd5b9f43c4ce5d601bf1708232f23537
+Author: nitin <abc@gmail.com>
+Date:   Tue Mar 16 16:38:15 2021 +0000
+
+    deleted file 1
+
+commit c435b7c2833173b83aa782c67057b49771d4112a
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 15 17:41:31 2021 +0000
+
+    added new file
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git log --follow b.java
+commit cdfab7187a4ab24a54ca3b59391f2547117c5f62 (HEAD -> main, origin/main, origin/HEAD)
+Author: nitin <abc@gmail.com>
+Date:   Tue Mar 16 16:39:56 2021 +0000
+
+    renamed file New
+
+commit 054fdd8c83e5da7db72c38cacd3d54da080efe5b
+Author: nitin <abc@gmail.com>
+Date:   Tue Mar 16 16:34:52 2021 +0000
+
+    renamed file
+
+commit c435b7c2833173b83aa782c67057b49771d4112a
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 15 17:41:31 2021 +0000
+
+    added new file
+ubuntu@ip-172-31-28-232:~/Practice-repo$
+
+
+================================================================
+###########################################################
+
+=======
+Phase-6
+=======
+
+# Undoing the changes:
+
+# undo/revert local changes from source area in exits files. ie. present in remote repo.
+        $ git checkout <filename>
+		
+ubuntu@ip-172-31-28-232:~/Practice-repo$ ls
+Neha.java  README.md  a.java  b.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+Ramtek
+ubuntu@ip-172-31-28-232:~/Practice-repo$ vim Neha.java    -->Now made same changes in Neha.java
+
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+Ramtek
+
+================
+Manthan
+Kartik
+Selina
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Neha.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git checkout Neha.java     --->the changes we made got undo.
+Updated 1 path from the index
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+Ramtek
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Practice-repo$
+
+
+============================================
+############################################
+
+# Unstage the changes from STAGE area
+        $ git reset HEAD <filename>     --->here head point to particular file--->if you don't specify head it will move all the file from stage to source.
+		
+ubuntu@ip-172-31-28-232:~/Practice-repo$ ls
+Neha.java  README.md  a.java  b.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+Ramtek
+ubuntu@ip-172-31-28-232:~/Practice-repo$ vim Neha.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+
+==============
+
+Manthan
+kartik
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Neha.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git add .
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   Neha.java
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git reset HEAD Neha.java
+Unstaged changes after reset:
+M       Neha.java
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Neha.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+
+==============
+
+Manthan
+kartik
+
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git checkout Neha.java
+Updated 1 path from the index
+ubuntu@ip-172-31-28-232:~/Practice-repo$ cat Neha.java
+neha
+rup
+nitin
+mahesh
+Rani
+===============
+
+Saoner
+Nagpur
+Ramtek
+ubuntu@ip-172-31-28-232:~/Practice-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Practice-repo$
+
+
+
+====================================================================
+###################################################################
+
+Branching
+---------
+
+ubuntu@ip-172-31-28-232:~$ ls
+Devops-March-batch-1  Notes  Practice-repo  covid  demo-repo  devops-march-batch
+ubuntu@ip-172-31-28-232:~$ cd demo-repo/
+ubuntu@ip-172-31-28-232:~/demo-repo$ ls
+README.md  neha.java
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch branch1
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+  branch1
+* main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git checkout branch1
+Switched to branch 'branch1'
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+* branch1
+  main
+ubuntu@ip-172-31-28-232:~/demo-repo$ touch m1.java
+ubuntu@ip-172-31-28-232:~/demo-repo$ git status
+On branch branch1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        m1.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/demo-repo$ git add .
+ubuntu@ip-172-31-28-232:~/demo-repo$ git status
+On branch branch1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   m1.java
+
+ubuntu@ip-172-31-28-232:~/demo-repo$ git commit m1.java -m "m1 file"
+[branch1 fd3c31b] m1 file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 m1.java
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+* branch1
+  main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git push
+fatal: The current branch branch1 has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin branch1
+
+ubuntu@ip-172-31-28-232:~/demo-repo$ git push --set-upstream origin branch1
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 289 bytes | 289.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'branch1' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/demo-repo/pull/new/branch1
+remote:
+To https://github.com/nitin-git-cmd/demo-repo.git
+ * [new branch]      branch1 -> branch1
+Branch 'branch1' set up to track remote branch 'branch1' from 'origin'.
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/branch1
+  origin/main
+ubuntu@ip-172-31-28-232:~/demo-repo$
+
+
+======================
+
+ubuntu@ip-172-31-28-232:~/demo-repo$ git checkout -b branch2
+Switched to a new branch 'branch2'
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+  branch1
+* branch2
+  main
+ubuntu@ip-172-31-28-232:~/demo-repo$
+
+========================
+ubuntu@ip-172-31-28-232:~/demo-repo$ git checkout -b branch2
+Switched to a new branch 'branch2'
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+  branch1
+* branch2
+  main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/branch1
+  origin/main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+  branch1
+* branch2
+  main
+ubuntu@ip-172-31-28-232:~/demo-repo$ touch s1.java
+ubuntu@ip-172-31-28-232:~/demo-repo$ git status
+On branch branch2
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        s1.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/demo-repo$ git add .
+ubuntu@ip-172-31-28-232:~/demo-repo$ git status
+On branch branch2
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   s1.java
+
+ubuntu@ip-172-31-28-232:~/demo-repo$ git commit s1.java -m "s1 file"
+[branch2 335774d] s1 file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 s1.java
+ubuntu@ip-172-31-28-232:~/demo-repo$ git status
+On branch branch2
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/demo-repo$ git push
+fatal: The current branch branch2 has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin branch2
+
+ubuntu@ip-172-31-28-232:~/demo-repo$ git push --set-upstream origin branch2
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 219 bytes | 219.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'branch2' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/demo-repo/pull/new/branch2
+remote:
+To https://github.com/nitin-git-cmd/demo-repo.git
+ * [new branch]      branch2 -> branch2
+Branch 'branch2' set up to track remote branch 'branch2' from 'origin'.
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/branch1
+  origin/branch2
+  origin/main
+ubuntu@ip-172-31-28-232:~/demo-repo$ git branch
+  branch1
+* branch2
+  main
+================================================
+
+
+
+
+
+============================
+
+
+
+=======================================
+
+Branching
+---------
+
+We have created 1 repository shila-repo on github and cloned it.
+We the created 3 files and push it to remote repoeitory.
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 09:12 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 09:12 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ touch c.java c1.java c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 09:14 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 09:12 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        c.java
+        c1.java
+        c2.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/shila-repo$ git add .
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   c.java
+        new file:   c1.java
+        new file:   c2.java
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git commit -m "demo files"
+[main 933a3e9] demo files
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 c.java
+ create mode 100644 c1.java
+ create mode 100644 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 272 bytes | 272.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/nitin-git-cmd/shila-repo.git
+   d44f455..933a3e9  main -> main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git log
+commit 933a3e9e1f0b892fb66a124e9062872d5e270cc1 (HEAD -> main, origin/main, origin/HEAD)
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 22 09:14:56 2021 +0000
+
+    demo files
+
+commit d44f455b3d75758177afec4498797d02768b33b1
+Author: nitin-git-cmd <80185177+nitin-git-cmd@users.noreply.github.com>
+Date:   Mon Mar 22 14:41:58 2021 +0530
+
+    Initial commit
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+==============================
+##############################
+
+# List all the branches
+        $ git branch
+
+This command is used to list all branches.
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+So we can see here only one branch is there "main"---->Note * is used to show current branch.
+
+==============================
+#############################
+
+# Creating a new branch
+        $ git branch new_branch_name
+		
+This command is used to create new branch
+
+We will create 2 branches now under main/master branch as below.
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch branch_1
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch branch_2
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+* main
+
+================================
+###############################
+
+# List all remote branches
+        $ git branch -r
+		
+This command is used to list all remote (Main/master) branches -->here remote is github repository
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/main
+
+Here we can see only one branch in output as we didn't push other 2 newly created branch to main.
+
+
+=================================
+################################
+
+# Switching to a newly created branch
+        $ git checkout new_branch_name
+		
+This command is used to switch to the respective branch.
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout branch_1
+Switched to branch 'branch_1'
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+* branch_1
+  branch_2
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls   ---->here we can see all the files which are present in main are replicated here.
+README.md  c.java  c1.java  c2.java
+
+=================================
+#################################
+
+# Creating and switching to a newly created branch
+        $ git checkout -b new_branch_name
+		
+This command is used to create and move directly to the branch.
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout -b branch_3
+Switched to a new branch 'branch_3'
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+* branch_3
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls   ----->here we can see all the files which are present in main are replicated here.
+README.md  c.java  c1.java  c2.java
+
+====================================
+####################################
+
+# First push newly created branch into remote repo
+        $ git push --set-upstream <repository-name> <branch-name>
+                or
+        $ git push -u origin --all
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+* branch_3
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+* branch_3
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push --set-upstream shila-repo branch_1
+fatal: 'shila-repo' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/shila-repo$  git push --set-upstream shila-repo branch_1
+fatal: 'shila-repo' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout branch_1
+Switched to branch 'branch_1'
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_1
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ touch b1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        b1.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/shila-repo$ git add .
+ubuntu@ip-172-31-28-232:~/shila-repo$ git commit b1.java -m "first file"
+[branch_1 f6d0311] first file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 b1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_1
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push --set-upstream shila-repo branch_1
+fatal: 'shila-repo' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push -u origin branch_1
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/nitin-git-cmd/shila-repo.git/'
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push -u origin branch_1
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 221 bytes | 221.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'branch_1' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/shila-repo/pull/new/branch_1
+remote:
+To https://github.com/nitin-git-cmd/shila-repo.git
+ * [new branch]      branch_1 -> branch_1
+Branch 'branch_1' set up to track remote branch 'branch_1' from 'origin'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_1
+Your branch is up to date with 'origin/branch_1'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls
+README.md  c.java  c1.java  c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout branch_1
+Switched to branch 'branch_1'
+Your branch is up to date with 'origin/branch_1'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls
+README.md  b1.java  c.java  c1.java  c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+
+Then I have got pull and merge request on github ....I approved that graphically....then the file b1.java got merged to main branch.
+------------------------------------------------------------------------------------------------------------------------------------
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+* branch_1
+  branch_2
+  branch_3
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 09:44 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 09:44 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:44 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 09:48 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 09:48 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git pull                ----b1.java was present at github in main branch of shila-repo but in local repo it was absent so used git pull
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), 627 bytes | 627.00 KiB/s, done.
+From https://github.com/nitin-git-cmd/shila-repo
+   933a3e9..1cda7c2  main       -> origin/main
+Updating 933a3e9..1cda7c2
+Fast-forward
+ b1.java | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 b1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 09:49 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 09:49 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:49 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+
+Example2:
+========
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 10:08 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 10:09 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch branch_4
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git remote -v
+origin  https://github.com/nitin-git-cmd/shila-repo.git (fetch)
+origin  https://github.com/nitin-git-cmd/shila-repo.git (push)
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch -v
+  branch_1 f6d0311 first file
+  branch_2 4cdde65 branch 2 br2 file
+  branch_3 253e129 branch 3 files to check merge operation
+  branch_4 ddebc1d Merge branch 'main' of https://github.com/nitin-git-cmd/shila-repo into main
+* main     ddebc1d Merge branch 'main' of https://github.com/nitin-git-cmd/shila-repo into main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/branch_1
+  origin/branch_2
+  origin/main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout branch_4
+Switched to branch 'branch_4'
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+* branch_4
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 10:08 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 10:25 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$
+ubuntu@ip-172-31-28-232:~/shila-repo$
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push --set-upstream origin branch_4
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'branch_4' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/shila-repo/pull/new/branch_4
+remote:
+To https://github.com/nitin-git-cmd/shila-repo.git
+ * [new branch]      branch_4 -> branch_4
+Branch 'branch_4' set up to track remote branch 'branch_4' from 'origin'.
+
+=====================================================
+###################################################
+
+# Merge files from source branch to target branch     -->Need to go to target branch and run this command...we move file to.git and push ...note that
+        $ git merge <source-branch-name>
+		
+we have created some files in branch_4 and we want to merge that files to main branch.
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 10:08 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 10:09 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch branch_4
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+* main
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/branch_1
+  origin/branch_2
+  origin/main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout branch_4
+Switched to branch 'branch_4'
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+* branch_4
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 10:08 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 10:25 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$
+ubuntu@ip-172-31-28-232:~/shila-repo$
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push --set-upstream origin branch_4    --->we have push brach_4 to main branch
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'branch_4' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/shila-repo/pull/new/branch_4
+remote:
+To https://github.com/nitin-git-cmd/shila-repo.git
+ * [new branch]      branch_4 -> branch_4
+Branch 'branch_4' set up to track remote branch 'branch_4' from 'origin'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 10:08 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 10:28 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+* branch_4
+  main
+ubuntu@ip-172-31-28-232:~/shila-repo$ touch br4_1.java br4_2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_4
+Your branch is up to date with 'origin/branch_4'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        br4_1.java
+        br4_2.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/shila-repo$ git add .
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status
+On branch branch_4
+Your branch is up to date with 'origin/branch_4'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   br4_1.java
+        new file:   br4_2.java
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git commit -m "branch_4 files to show merge operation"
+[branch_4 53980bb] branch_4 files to show merge operation
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 br4_1.java
+ create mode 100644 br4_2.java 
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status         ------------here we fine 1 commit in branch_4
+On branch branch_4
+Your branch is ahead of 'origin/branch_4' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ git log
+commit 53980bbce7b9af46e70ae3a7e125054922ba4ccd (HEAD -> branch_4)
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 22 10:32:52 2021 +0000
+
+    branch_4 files to show merge operation
+
+commit ddebc1dc6a7c2a7925e880554f5e314d09ef92f2 (origin/main, origin/branch_4, origin/HEAD, main)
+Merge: cdc0e77 0e8d804
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 22 10:09:11 2021 +0000
+
+    Merge branch 'main' of https://github.com/nitin-git-cmd/shila-repo into main
+
+commit cdc0e77f62aadca6ee1dd78e2c570ba5566676d9
+Merge: f04745a 253e129
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 22 10:08:23 2021 +0000
+
+    Merge branch 'branch_3' into main
+
+commit 253e129c904789997e2f16aac53728629e2c58b5 (branch_3)
+Author: nitin <abc@gmail.com>
+Date:   Mon Mar 22 10:07:39 2021 +0000
+
+    branch 3 files to check merge operation
+
+commit 0e8d804e1267bba49e2cba0c076eb3fb71219862
+Merge: 1cda7c2 4cdde65
+Author: nitin-git-cmd <80185177+nitin-git-cmd@users.noreply.github.com>
+Date:   Mon Mar 22 15:32:15 2021 +0530
+ubuntu@ip-172-31-28-232:~/shila-repo$ git checkout main                     --->the we go to min branch as we want branch_4 to be merged with main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 22 10:33 ./
+drwxr-xr-x 12 ubuntu ubuntu 4096 Mar 22 09:12 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 22 10:33 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 22 09:12 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 10:08 br3_3.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 22 09:14 c2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git merge branch_4               --->Then we nerged branch_4 to main branch
+Updating ddebc1d..53980bb
+Fast-forward
+ br4_1.java | 0
+ br4_2.java | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 br4_1.java
+ create mode 100644 br4_2.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git status                    --->We found 1 commit here as we merged branch_4
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/shila-repo$ ls                            --->We found all the file merged into local repository but it didn't reflect to remote repo as we haven't push it.So we push it now
+README.md  br2.java    br3_2.java  br4_1.java  c.java   c2.java
+b1.java    br3_1.java  br3_3.java  br4_2.java  c1.java
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push                      --->We did git push and found all the files are reflected in remote repo now..we checked it on github UI
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 246 bytes | 246.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/nitin-git-cmd/shila-repo.git
+   ddebc1d..53980bb  main -> main
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+
+=================================================
+################################################
