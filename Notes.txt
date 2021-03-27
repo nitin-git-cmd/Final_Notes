@@ -2652,3 +2652,660 @@ To https://github.com/nitin-git-cmd/Rebase_Demo.git
    1cbcb92..6fc4d09  main -> main
 ubuntu@ip-172-31-28-232:~/Rebase_Demo$
 #
+
+=====================================================
+
+Merging:
+=========
+# FAST-FORWARD MERGE
+
+BEFORE MERGE:
+-------------
+                        master
+                         |
+----C1--C2---C3
+                         |
+                         ----------C4----C5
+                                                                dev_1.2.3
+
+AFTER MERGE:
+-------------
+                                                master
+                                                  |
+----C1----C2---C3------C4----C5
+                                                  |
+                                                dev_1.2.3
+
+
+Excercise:
+===========
+# List all the branches
+        $ git branch
+
+# Create a new branch
+        $ git branch <new-branch>
+
+# Add some changes to newely created branch i.e <new-branch>
+        $ Modify/Add some files
+        $ git add
+        $ git commit
+
+# Now merge the code from <new-branch> to master branch
+  Before merge, make sure that you are on target branch i.e master (source branch: dev_1.2.3)
+        $ git checkout master
+
+# You have master code in source since currently checkout branch is master. Now bring/merge the changes from <new-branch> to master by running below command.
+Git merge command merges the changes from <new-branch> to master.
+Verify the chages.
+        $ git merge <new-branch>
+
+# Observce the changes from dev_1.2.3 into master branch.
+
+# git push
+
+
+# FAST-FORWARD MERGE  --->Example
+---------------------
+
+ubuntu@ip-172-31-28-232:~$ git clone https://github.com/nitin-git-cmd/Merge-Demo.git
+Cloning into 'Merge-Demo'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 596 bytes | 596.00 KiB/s, done.
+ubuntu@ip-172-31-28-232:~$ ls
+Devops-March-batch-1  Merge-Demo  Practice-repo  covid      devops-march-batch
+Final_Notes           Notes       Rebase_Demo    demo-repo  shila-repo
+ubuntu@ip-172-31-28-232:~$ cd Merge-Demo/
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ls -a
+.  ..  .git  README.md
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git branch
+* main
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ touch c1.java c2.java c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        c1.java
+        c2.java
+        c3.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   c1.java
+        new file:   c2.java
+        new file:   c3.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "demo c files"
+[main a44dfd4] demo c files
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 c1.java
+ create mode 100644 c2.java
+ create mode 100644 c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git branch
+* main
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git checkout -b branch1
+Switched to a new branch 'branch1'
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git branch
+* branch1
+  main
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ls
+README.md  c1.java  c2.java  c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ touch b1.java b2.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ls
+README.md  b1.java  b2.java  c1.java  c2.java  c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        b1.java
+        b2.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   b1.java
+        new file:   b2.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "b files for merging to main branch"
+[branch1 c1fcdaf] b files for merging to main branch
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 b1.java
+ create mode 100644 b2.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git merge branch1
+Updating a44dfd4..c1fcdaf
+Fast-forward
+ b1.java | 0
+ b2.java | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 b1.java
+ create mode 100644 b2.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git push
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 457 bytes | 457.00 KiB/s, done.
+Total 5 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+To https://github.com/nitin-git-cmd/Merge-Demo.git
+   47df6e7..c1fcdaf  main -> main
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ls
+README.md  b1.java  b2.java  c1.java  c2.java  c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 27 10:55 ./
+drwxr-xr-x 16 ubuntu ubuntu 4096 Mar 27 10:47 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 27 10:55 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 27 10:47 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c3.java
+
+
+---When we go to remote repo we found all the file in main branch.
+---but we found only branch in remote repo i.e main..this is because we havn't puch the branch1 to origin.
+
+Now, we will push the branch1 to main(origin)
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git push --set-upstream origin branch1
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'branch1' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/Merge-Demo/pull/new/branch1
+remote:
+To https://github.com/nitin-git-cmd/Merge-Demo.git
+ * [new branch]      branch1 -> branch1
+Branch 'branch1' set up to track remote branch 'branch1' from 'origin'.
+ubuntu@ip-172-31-28-232:~/Merge-Demo$
+
+
+---We found the new branch1 added to origin.
+
+MERGING W/ CONFLICT: (It is called as Real-Merge)
+=================================================
+
+
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git branch
+  branch1
+* main
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ls
+README.md  b1.java  b2.java  c1.java  c2.java  c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ vim c1.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   c1.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   c1.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "conflict c1 file"
+[main cf55ce5] conflict c1 file
+ 1 file changed, 3 insertions(+)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git checkout branch1
+Switched to branch 'branch1'
+Your branch is up to date with 'origin/branch1'.
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ll
+total 16
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 27 11:07 ./
+drwxr-xr-x 16 ubuntu ubuntu 4096 Mar 27 11:06 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 27 11:07 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 27 10:47 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 11:07 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ vim c1.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+Your branch is up to date with 'origin/branch1'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   c1.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+Your branch is up to date with 'origin/branch1'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   c1.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "c1 file in branch1 for conflict demo"
+[branch1 e26ff74] c1 file in branch1 for conflict demo
+ 1 file changed, 3 insertions(+)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+Your branch is ahead of 'origin/branch1' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git merge branch1
+Auto-merging c1.java
+CONFLICT (content): Merge conflict in c1.java
+Automatic merge failed; fix conflicts and then commit the result.
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ cat c1.java
+hello
+<<<<<<< HEAD
+Neha
+how are you?
+=======
+Rupali
+How are you?
+>>>>>>> branch1
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ vim c1.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   c1.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        modified:   c1.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "resolved conflict file"
+[main 0a65888] resolved conflict file
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git push
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (7/7), 704 bytes | 704.00 KiB/s, done.
+Total 7 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Merge-Demo.git
+   c1fcdaf..0a65888  main -> main
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ll
+total 20
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 27 11:11 ./
+drwxr-xr-x 16 ubuntu ubuntu 4096 Mar 27 11:11 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 27 11:12 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 27 10:47 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b2.java
+-rw-rw-r--  1 ubuntu ubuntu   26 Mar 27 11:11 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c3.java
+
+
+
+---------------------------------------------------------
+=========================================================
+
+# If your data in working or stage area then, Before entring to new branch apply below command
+        $ git stash
+        $ git checkout new-branch-name
+        $ git stash pop
+        $ git merge new-branch-name
+
+
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git branch
+  branch1
+* main
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ ll
+total 20
+drwxrwxr-x  3 ubuntu ubuntu 4096 Mar 27 11:11 ./
+drwxr-xr-x 16 ubuntu ubuntu 4096 Mar 27 11:11 ../
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar 27 11:12 .git/
+-rw-rw-r--  1 ubuntu ubuntu   12 Mar 27 10:47 README.md
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:55 b2.java
+-rw-rw-r--  1 ubuntu ubuntu   26 Mar 27 11:11 c1.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c2.java
+-rw-rw-r--  1 ubuntu ubuntu    0 Mar 27 10:49 c3.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ vim b1.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ cat b1.java
+nitin
+neha
+rupali
+shila
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   b1.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   b1.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git stash
+Saved working directory and index state WIP on main: 0a65888 resolved conflict file
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git checkout branch1
+Switched to branch 'branch1'
+Your branch is ahead of 'origin/branch1' by 1 commit.
+  (use "git push" to publish your local commits)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ vim b1.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ vim b1.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ cat b1.java
+nitin
+neha
+rupali
+dnyaneshwar
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+Your branch is ahead of 'origin/branch1' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   b1.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "stage conflict using stash demo"
+[branch1 0f40ba2] stage conflict using stash demo
+ 1 file changed, 4 insertions(+)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch branch1
+Your branch is ahead of 'origin/branch1' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git stash pop
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   b1.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (815c2815d39f8e0006e3d81207c63031b7901406)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   b1.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "conflict stash demo in main"
+[main bfec736] conflict stash demo in main
+ 1 file changed, 4 insertions(+)
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git merge branch1
+Auto-merging b1.java
+CONFLICT (content): Merge conflict in b1.java
+Automatic merge failed; fix conflicts and then commit the result.
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ cat b1.java
+nitin
+neha
+rupali
+<<<<<<< HEAD
+shila
+=======
+dnyaneshwar
+>>>>>>> branch1
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ vim b1.java
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ cat b1.java
+nitin
+neha
+rupali
+dnyaneshwar
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   b1.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git add .
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        modified:   b1.java
+
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git commit -m "final stash resolved conflict file"
+[main 2b64009] final stash resolved conflict file
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-28-232:~/Merge-Demo$ git push
+Username for 'https://github.com': nitin-git-cmd
+Password for 'https://nitin-git-cmd@github.com':
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (7/7), 723 bytes | 723.00 KiB/s, done.
+Total 7 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/nitin-git-cmd/Merge-Demo.git
+   0a65888..2b64009  main -> main
+
+
+================================================================
+################################################################
+
+# If we want to delete branch locally use below command
+$ git branch -d <branch-name>  (after delete branch please copy that id for recover ex.(06e9029))
+
+# If we want to delete branch locally focefully use below command
+$ git branch -D <branch-name>
+
+# If we want to delete remote branches use below command
+$ git push -u origin --delete <branch-name>
+                or
+$ git push origin --delete <branch-name>
+
+# If you want to recover local branches then use below command
+$ git branch <branch-name> <deleted-branch-id>
+
+
+
+
+# If we want to delete branch locally use below command
+$ git branch -d <branch-name>  (after delete branch please copy that id for recover ex.(06e9029))
+
+
+ubuntu@ip-172-31-28-232:~$ cd shila-repo/
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+  branch_5
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch -d branch_1
+Deleted branch branch_1 (was f6d0311).
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_2
+  branch_3
+  branch_4
+  branch_5
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+---------------------------------------------------------------------
+# If we want to delete remote branches use below command                        --->branch get deleted from remote repository as well
+$ git push -u origin --delete <branch-name>
+                or
+$ git push origin --delete <branch-name>
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push origin --delete branch_1
+To https://github.com/nitin-git-cmd/shila-repo.git
+ - [deleted]         branch_1
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_2
+  branch_3
+  branch_4
+  branch_5
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/branch_2
+  origin/branch_3
+  origin/branch_4
+  origin/branch_5
+  origin/main
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+
+When we saw in remote repo the branch_1 got deleted from there also.
+
+-------------------------------------------------------------------------
+
+
+# If you want to recover local branches then use below command
+$ git branch <branch-name> <deleted-branch-id>
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch branch_1 f6d0311
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+  branch_5
+* main
+
+-- Now we recovered the deleted branch locally
+-- To recover it centrally i.e remote repository we need to push this branch 
+
+ubuntu@ip-172-31-28-232:~/shila-repo$ git push --set-upstream origin branch_1
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'branch_1' on GitHub by visiting:
+remote:      https://github.com/nitin-git-cmd/shila-repo/pull/new/branch_1
+remote:
+To https://github.com/nitin-git-cmd/shila-repo.git
+ * [new branch]      branch_1 -> branch_1
+Branch 'branch_1' set up to track remote branch 'branch_1' from 'origin'.
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch
+  branch_1
+  branch_2
+  branch_3
+  branch_4
+  branch_5
+* main
+ubuntu@ip-172-31-28-232:~/shila-repo$ git branch -r
+  origin/HEAD -> origin/main
+  origin/branch_1
+  origin/branch_2
+  origin/branch_3
+  origin/branch_4
+  origin/branch_5
+  origin/main
+ubuntu@ip-172-31-28-232:~/shila-repo$
+
+
+-----------------------------------------------------------------------------------
